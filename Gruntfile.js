@@ -6,14 +6,22 @@ var lodash = require('lodash');
 module.exports = function(grunt) {
 
   grunt.initConfig({
+    bwr: grunt.file.readJSON('bower.json'),
     jshint: {
       files: src
     },
-    releaseToBower: {
+    release: {
       options: {
         npm: false,
         npmtag: false,
-        file: 'bower.json'
+        commit: false,
+        file: 'bower.json',
+        beforeBump: ['fail', 'jshint'],
+        afterBump: [
+          'ngAnnotate',
+          'uglify',
+          'gitcommit'
+        ],
       }
     },
     ngAnnotate: {
@@ -28,7 +36,13 @@ module.exports = function(grunt) {
     },
     uglify: {
       options: {
-        mangle: true
+        mangle: true,
+        sourceMap: true,
+        banner: '/**\n' +
+        ' * @license <%= bwr.name %> <%= bwr.version %> (<%= grunt.template.today("dd-mm-yyyy") %>)\n' +
+        ' * (c) 2015 IdentPro GmbH\n' +
+        ' * License: MIT\n' +
+        ' */'
       },
       my_target: {
         files: {
@@ -55,16 +69,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-git');
 
   grunt.registerTask('default', ['jshint']);
-
-  grunt.renameTask('release', 'releaseToBower');
-  grunt.registerTask('release', function(major_minor_patch){
-    major_minor_patch = major_minor_patch || 'patch';
-    grunt.task.run([
-      'jshint',
-      'ngAnnotate',
-      'uglify',
-      'gitcommit',
-      'releaseToBower:' + major_minor_patch
-    ]);
+  grunt.registerTask('release', function() {
+    grunt.fail.fatal("automatic release currently not possible due to https://github.com/geddski/grunt-release/pull/105");
   });
 }
