@@ -1,0 +1,25 @@
+{
+  "name": "ng-rollbar",
+  "main": "ng-rollbar.min.js",
+  "version": "0.0.1",
+  "homepage": "https://github.com/tandibar/ng-rollbar",
+  "authors": [
+    "Andreas Bade <andreas.bade@identpro.de>"
+  ],
+  "description": "AngularJS integration for Rollbar",
+  "keywords": [
+    "rollbar",
+    "angular",
+    "angularjs",
+    "exception handling"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "test",
+    "tests",
+    "Gruntfile",
+    "package.json"
+  ]
+}
