@@ -1,10 +1,10 @@
 (function(angular){
-  angular.module('tandibar/ng-rollbar');
+  angular.module('tandibar/ng-rollbar', []);
 
   angular.module('tandibar/ng-rollbar').config(function($provide) {
     $provide.decorator("$exceptionHandler", function($delegate, $window) {
       return function (exception, cause) {
-        if ($window.Rollbar) {
+        if($window.Rollbar) {
           $window.Rollbar.error(exception);
         }
         $delegate(exception, cause);
