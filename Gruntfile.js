@@ -60,7 +60,6 @@ module.exports = function(grunt) {
     major_minor_patch = major_minor_patch || 'patch';
     grunt.task.run([
       'jshint',
-      'concat',
       'ngAnnotate',
       'uglify',
       'gitcommit',
