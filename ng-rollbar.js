@@ -12,7 +12,7 @@
     });
   });
 
-  angular.module('tandibar/ng-rollbar').provider('$rollbar', function $rollbarProvider() {
+  angular.module('tandibar/ng-rollbar').provider('Rollbar', function RollbarProvider() {
     var rollbarProvider = this;
 
     this.init = function(config) {
