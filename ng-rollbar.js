@@ -5,7 +5,7 @@
     $provide.decorator("$exceptionHandler", function($delegate, $window) {
       return function (exception, cause) {
         if($window.Rollbar) {
-          $window.Rollbar.error(exception);
+          $window.Rollbar.error(exception, {cause: cause});
         }
         $delegate(exception, cause);
       };
