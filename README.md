@@ -1,13 +1,14 @@
 ng-rollbar
 ==========
 
-[Rollbar](https://rollbar.com/) integration vor [AngularJS](https://angularjs.org/)
+[Rollbar](https://rollbar.com/) integration for [AngularJS](https://angularjs.org/)
 
 Installation
 ------------
 
-Through bower: `bower install ng-rollbar --save`
+You can use (bower)[http://bower.io/] to install this rontend dependency: `bower install ng-rollbar --save`
 
+Or you can just clone this repo: `git clone https://github.com/tandibar/ng-rollbar.git`
 
 Usage
 -----
@@ -84,7 +85,7 @@ And if anything is missing you can access the original Rollbar object via
 How it works
 ------------
 
-The library decorates angulars `$exceptionHandler` with a call to `Rollbar.error` with the catched exception.
+The library decorates angulars `$exceptionHandler` with a call to `Rollbar.error` with the catched exception and the cause.
 
 
 License
