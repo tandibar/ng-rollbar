@@ -1,7 +1,7 @@
 (function(angular){
-  angular.module('ng-rollbar', []);
+  angular.module('tandibar/ng-rollbar', []);
 
-  angular.module('ng-rollbar').config(['$provide', function($provide) {
+  angular.module('tandibar/ng-rollbar').config(['$provide', function($provide) {
     $provide.decorator("$exceptionHandler", function($delegate, $window) {
       return function (exception, cause) {
         if($window.Rollbar) {
@@ -12,7 +12,7 @@
     });
   }]);
 
-  angular.module('ng-rollbar').provider('Rollbar', function RollbarProvider() {
+  angular.module('tandibar/ng-rollbar').provider('Rollbar', function RollbarProvider() {
     var rollbarProvider = this;
 
     this.init = function(config) {
