@@ -56,7 +56,7 @@ module.exports = function(grunt) {
           message: 'adding generated files for release preparation'
         },
         files: {
-          src: [dst, 'ng-rollbar.min.js']
+          src: [dst, 'bower.json', 'ng-rollbar.min.js', 'ng-rollbar.min.js.map']
         }
       }
     }
@@ -69,7 +69,4 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-git');
 
   grunt.registerTask('default', ['jshint']);
-  grunt.registerTask('release', function() {
-    grunt.fail.fatal("automatic release currently not possible due to https://github.com/geddski/grunt-release/pull/105\nfirst bump version in bower.json\nthen use `grunt ngAnnotate uglify` to build min version\nthan commit the changes\nthan create tag: git tag `underscore -i bower.json process 'console.log(data.version)'`");
-  });
 }
