@@ -1,7 +1,7 @@
 (function(angular){
   angular.module('tandibar/ng-rollbar', []);
 
-  angular.module('tandibar/ng-rollbar').config(function($provide) {
+  angular.module('tandibar/ng-rollbar').config(['$provide', function($provide) {
     $provide.decorator("$exceptionHandler", function($delegate, $window) {
       return function (exception, cause) {
         if($window.Rollbar) {
@@ -10,7 +10,7 @@
         $delegate(exception, cause);
       };
     });
-  });
+  }]);
 
   angular.module('tandibar/ng-rollbar').provider('Rollbar', function RollbarProvider() {
     var rollbarProvider = this;
@@ -22,32 +22,35 @@
       /* jshint ignore:end */
     };
 
-    this.$get = function($window) {
-      return {
-        Rollbar: $window.Rollbar,
+    getter.$inject = ['$window'];
+    function getter($window) {
+        return {
+            Rollbar: $window.Rollbar,
 
-        configure: $window.Rollbar.configure,
+            configure: $window.Rollbar.configure,
 
-        critical: $window.Rollbar.critical,
-        error: $window.Rollbar.error,
-        warning: $window.Rollbar.warning,
-        info: $window.Rollbar.info,
-        debug: $window.Rollbar.debug,
+            critical: $window.Rollbar.critical,
+            error: $window.Rollbar.error,
+            warning: $window.Rollbar.warning,
+            info: $window.Rollbar.info,
+            debug: $window.Rollbar.debug,
 
-        scope: $window.Rollbar.scope,
+            scope: $window.Rollbar.scope,
 
-        verbose: function(boolean) {
-          if(boolean === undefined) { boolean = true; }
-          $window.Rollbar.configure({verbose: boolean});
-        },
-        enable: function() {
-          $window.Rollbar.configure({enabled: true});
-        },
-        disable: function() {
-          $window.Rollbar.configure({enabled: false});
-        }
-      };
+            verbose: function (boolean) {
+                if (boolean === undefined) { boolean = true; }
+                $window.Rollbar.configure({ verbose: boolean });
+            },
+            enable: function () {
+                $window.Rollbar.configure({ enabled: true });
+            },
+            disable: function () {
+                $window.Rollbar.configure({ enabled: false });
+            }
+        };
     };
+
+      this.$get = getter;
   });
 
 })
