@@ -6,7 +6,7 @@ ng-rollbar
 Installation
 ------------
 
-You can use [bower](http://bower.io/) to install this rontend dependency: `bower install ng-rollbar --save`
+You can use [bower](http://bower.io/) to install this frontend dependency: `bower install ng-rollbar --save`
 
 Or you can just clone this repo: `git clone https://github.com/tandibar/ng-rollbar.git`
 
