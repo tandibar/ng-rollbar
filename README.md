@@ -3,7 +3,7 @@ ng-rollbar
 
 [Rollbar](https://rollbar.com/) integration for [AngularJS](https://angularjs.org/)
 
-Current rollbar.js Version: 1.4.4
+This library automatically loads rollbar.js in version `1.4.4`
 
 Installation
 ------------
