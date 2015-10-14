@@ -46,6 +46,19 @@ What you pass in via this init is exactly what you would do via the `_rollbarCon
 
 Now every exception will be tracked by Rollbar.
 
+### Do not load
+
+If you are developing Apps which sometimes get deployed in an environment without
+internet access (yes, theses places still exist) than you might want to disable
+the whole loading process of rollbar:
+
+    myApp.config(function(RollbarProvider) {
+      RollbarProvider.deinit();
+    });
+
+Now whenever you call a Rollbar function you will just get a log message and no
+script will be loaded.
+
 ### Custom
 
 If you need to manually trigger calls to Rollbar you can inject Rollbar where needed
