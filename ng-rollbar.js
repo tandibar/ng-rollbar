@@ -2,14 +2,14 @@
   angular.module('tandibar/ng-rollbar', []);
 
   angular.module('tandibar/ng-rollbar').config(['$provide', function($provide) {
-    $provide.decorator("$exceptionHandler", function($delegate, $window) {
+    $provide.decorator('$exceptionHandler', ['$delegate', '$window', function($delegate, $window) {
       return function (exception, cause) {
         if($window.Rollbar) {
           $window.Rollbar.error(exception, {cause: cause});
         }
         $delegate(exception, cause);
       };
-    });
+    }]);
   }]);
 
   angular.module('tandibar/ng-rollbar').provider('Rollbar', function RollbarProvider() {
