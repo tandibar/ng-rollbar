@@ -3,7 +3,8 @@ ng-rollbar
 
 [Rollbar](https://rollbar.com/) integration for [AngularJS](https://angularjs.org/)
 
-Since version `1.7.2` this library is aligned to the official [rollbar.js](https://github.com/rollbar/rollbar.js/).
+Since version `1.7.2` the version of `ng-rollbar` equals the official [rollbar.js](https://github.com/rollbar/rollbar.js/) version. So if you
+install `1.8.0` of this library you will get `rollbar.js` in version `1.8.0`.
 
 Before that `0.5.0` means rollbar.js in version `v1.7.0`
 You can use version `0.4.0` for rollbar.js in version `1.5.0`
