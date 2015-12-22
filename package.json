@@ -1,6 +1,6 @@
 {
   "name": "ng-rollbar",
-  "version": "0.5.0",
+  "version": "1.7.2",
   "description": "Rollbar integration for angular",
   "main": "ng-rollbar.js",
   "repository": {

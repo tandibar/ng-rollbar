@@ -24,7 +24,7 @@ module.exports = function(grunt) {
         afterBump: [
           'ngAnnotate',
           'uglify',
-          'gitcommit'
+          'gitcommit:for-release'
         ],
       }
     },
@@ -60,7 +60,15 @@ module.exports = function(grunt) {
           message: 'adding generated files for release preparation'
         },
         files: {
-          src: [dst, 'bower.json', 'ng-rollbar.min.js', 'ng-rollbar.min.js.map']
+          src: [dst, 'bower.json', 'package.json', 'ng-rollbar.min.js', 'ng-rollbar.min.js.map']
+        }
+      },
+      'lib-update': {
+        options: {
+          message: 'integrated rollar snippet in version <here-to-be-specific-version>'
+        },
+        files: {
+          src: [dst]
         }
       }
     }
@@ -86,7 +94,7 @@ module.exports = function(grunt) {
       grunt.log.writeln("Got response: " + res.statusCode);
       res.on('data', function(snippet) {
 
-        var stream = byline(fs.createReadStream('./ng-rollbar.js', { encoding: 'utf8' }), { keepEmptyLines: true });
+        var stream = byline(fs.createReadStream(dst, { encoding: 'utf8' }), { keepEmptyLines: true });
         var newFileContent = "";
 
         var waiting = false;
@@ -109,12 +117,28 @@ module.exports = function(grunt) {
 
         stream.on('end', function() {
           grunt.log.writeln("overwriting ng-rollbar.js with new lib");
-          fs.writeFile("./ng-rollbar.js", newFileContent.trim() + "\n");
+          fs.writeFile(dst, newFileContent.trim() + "\n");
+
+          // commit changes
+          grunt.config('gitcommit.lib-update.options.message', "integrated rollbar snippet in version " + version);
+          grunt.task.run('gitcommit:lib-update');
+
           done();
         });
       });
     }).on('error', function(e) {
       grunt.log.writeln("Got error: " + e.message);
     });
+  });
+
+  grunt.registerTask('help', 'display help message', function() {
+    grunt.log.writeln("How to release a new version");
+    grunt.log.writeln("----------------------------");
+    grunt.log.writeln();
+    grunt.log.writeln("1. upgrade the lib by doing");
+    grunt.log.writeln("  $> grunt update-lib:1.x.y");
+    grunt.log.writeln();
+    grunt.log.writeln("2. release");
+    grunt.log.writeln("  $> grunt release (major/minor/patch)");
   });
 }
