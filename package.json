@@ -2,7 +2,7 @@
   "name": "ng-rollbar",
   "version": "1.8.2",
   "description": "Rollbar integration for angular",
-  "main": "ng-rollbar.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/tandibar/ng-rollbar.git"
