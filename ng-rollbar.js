@@ -55,7 +55,9 @@
       if (rollbarActivated) {
         service.Rollbar = $window.Rollbar;
 
-        service.configure = $window.Rollbar.configure;
+        service.configure = function(object) {
+	  $window.Rollbar.configure(object);
+	};
 
         service.critical = $window.Rollbar.critical;
         service.error = $window.Rollbar.error;
