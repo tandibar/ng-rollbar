@@ -55,25 +55,43 @@
       if (rollbarActivated) {
         service.Rollbar = $window.Rollbar;
 
-        service.configure = function(object) {
-	  $window.Rollbar.configure(object);
+        service.configure = function(obj) {
+	  return $window.Rollbar.configure(obj);
 	};
 
-        service.critical = $window.Rollbar.critical;
-        service.error = $window.Rollbar.error;
-        service.warning = $window.Rollbar.warning;
-        service.info = $window.Rollbar.info;
-        service.debug = $window.Rollbar.debug;
+        service.critical = function(str) {
+          return $window.Rollbar.critical(str);
+        };
 
-        service.scope = $window.Rollbar.scope;
+        service.error = function(str){
+          return $window.Rollbar.error(str);
+        };
+
+        service.warning = function(str) {
+          return $window.Rollbar.warning(str);
+        };
+
+        service.info = function(str) {
+          return $window.Rollbar.info(str);
+        };
+
+        service.debug = function(str) {
+          return $window.Rollbar.debug(str);
+        };
+
+        service.scope = function(obj) {
+          return $window.Rollbar.scope(obj);
+        };
 
         service.verbose = function (boolean) {
           if (boolean === undefined) { boolean = true; }
           $window.Rollbar.configure({ verbose: boolean });
         };
+
         service.enable = function () {
           $window.Rollbar.configure({ enabled: true });
         };
+
         service.disable = function () {
           $window.Rollbar.configure({ enabled: false });
         };
