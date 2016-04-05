@@ -56,8 +56,8 @@
         service.Rollbar = $window.Rollbar;
 
         service.configure = function(obj) {
-	  return $window.Rollbar.configure(obj);
-	};
+          return $window.Rollbar.configure(obj);
+        };
 
         service.critical = function(str) {
           return $window.Rollbar.critical(str);
