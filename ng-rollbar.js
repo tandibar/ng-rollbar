@@ -102,7 +102,7 @@
       }
 
       return service;
-    };
+    }
 
     this.$get = getter;
   });
