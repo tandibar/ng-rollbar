@@ -2,10 +2,17 @@
   angular.module('tandibar/ng-rollbar', []);
 
   angular.module('tandibar/ng-rollbar').config(['$provide', function($provide) {
-    $provide.decorator('$exceptionHandler', ['$delegate', '$window', function($delegate, $window) {
+    $provide.decorator('$exceptionHandler', ['$delegate', '$injector', '$window', function($delegate, $injector, $window) {
       return function (exception, cause) {
         if($window.Rollbar) {
-          $window.Rollbar.error(exception, {cause: cause});
+          $window.Rollbar.error(exception, {cause: cause}, function(err, data) {
+            var $rootScope = $injector.get('$rootScope');
+            $rootScope.$emit('rollbar:exception', {
+              exception: exception,
+              err: err,
+              data: data.result
+            });
+          });
         }
         $delegate(exception, cause);
       };
@@ -56,8 +63,8 @@
         service.Rollbar = $window.Rollbar;
 
         service.configure = function(obj) {
-	  return $window.Rollbar.configure(obj);
-	};
+          return $window.Rollbar.configure(obj);
+        };
 
         service.critical = function(str) {
           return $window.Rollbar.critical(str);
@@ -102,7 +109,7 @@
       }
 
       return service;
-    };
+    }
 
     this.$get = getter;
   });

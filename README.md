@@ -25,25 +25,31 @@ Usage
 
 Add the library into your application:
 
-    <script type="text/javascript" src="bower_components/ng-rollbar/ng-rollbar.min.js"></script>
+```html
+<script type="text/javascript" src="bower_components/ng-rollbar/ng-rollbar.min.js"></script>
+```
 
 Add the module as dependency to your angular app:
 
-    angular.module('myApp', ['tandibar/ng-rollbar', ...])
+```javascript
+angular.module('myApp', ['tandibar/ng-rollbar', ...])
+```
 
 ### Initialize
 
 Now initialize the rollbar in your application's config:
 
-    myApp.config(function(RollbarProvider) {
-      RollbarProvider.init({
-        accessToken: "<YOUR-APPLICATION-TOKEN>",
-        captureUncaught: true,
-        payload: {
-          environment: '<specify-your-env>'
-        }
-      });
-    });
+```javascript
+myApp.config(function(RollbarProvider) {
+  RollbarProvider.init({
+    accessToken: "<YOUR-APPLICATION-TOKEN>",
+    captureUncaught: true,
+    payload: {
+      environment: '<specify-your-env>'
+    }
+  });
+});
+```
 
 What you pass in via this init is exactly what you would do via the `_rollbarConfig` variable as described in the [Rollbar Docs](https://rollbar.com/docs/notifier/rollbar.js/). This call to `init` will trigger the inclusion of the Rollbar snippet in your application. So if you never trigger the `init` call, Rollbar will never track anything.
 
@@ -55,9 +61,11 @@ If you are developing Apps which sometimes get deployed in an environment withou
 internet access (yes, theses places still exist) than you might want to disable
 the whole loading process of rollbar:
 
-    myApp.config(function(RollbarProvider) {
-      RollbarProvider.deinit();
-    });
+```javascript
+myApp.config(function(RollbarProvider) {
+  RollbarProvider.deinit();
+});
+```
 
 Now whenever you call a Rollbar function you will just get a log message and no
 script will be loaded.
@@ -66,42 +74,72 @@ script will be loaded.
 
 If you need to manually trigger calls to Rollbar you can inject Rollbar where needed
 
-    myApp.controller('MainCtrl', function($scope, Rollbar) {
-      $scope.onSomeEvent = function() {
-        Rollbar.error('this is an error with special handling');
-      };
-    });
+```javascript
+myApp.controller('MainCtrl', function($scope, Rollbar) {
+  $scope.onSomeEvent = function() {
+    Rollbar.error('this is an error with special handling');
+  };
+});
+```
 
 You can enable/disable Rollbar via:
 
-    Rollbar.disable();
-    // ... things that should not be tracked by Rollbar ...
-    Rollbar.enable();
+```javascript
+Rollbar.disable();
+// ... things that should not be tracked by Rollbar ...
+Rollbar.enable();
+```
 
 and you can turn on verbosity:
 
-    Rollbar.verbose(); // will log infos to console
-
+```javascript
+Rollbar.verbose(); // will log infos to console
+```
 
 Other exposed api calls (see [Rollbar Docs](https://rollbar.com/docs/notifier/rollbar.js/) for further usage infos)
 
-    // Rollbar severities
-    Rollbar.critical("some critical error");
-    Rollbar.error("some error");
-    Rollbar.warning("some warning");
-    Rollbar.info("some info");
-    Rollbar.debug("some debug message");
+```javascript
+// Rollbar severities
+Rollbar.critical("some critical error");
+Rollbar.error("some error");
+Rollbar.warning("some warning");
+Rollbar.info("some info");
+Rollbar.debug("some debug message");
 
-    // Rollbar config
-    Rollbar.configure(<new-config>);
+// Rollbar config
+Rollbar.configure(<new-config>);
 
-    // Rollbar scope
-    Rollbar.scope();
+// Rollbar scope
+Rollbar.scope();
+```
 
 And if anything is missing you can access the original Rollbar object via
 
-    Rollbar.Rollbar // access original Rollbar instance
+```javascript
+Rollbar.Rollbar // access original Rollbar instance
+```
 
+### Eventing & Callbacks
+
+Since Angular 1.x decorators cannot specify order of execution, handling the results of the Rollbar request (such as fetching the UUID to hand-off to Customer Service) relies on the Angular eventing system. Whenever an exception is caught and handled by Rollbar, a `rollbar:exception` event will be emitted on `$rootScope`.
+
+This provides easy access to the Rollbar API response:
+
+```javascript
+    angular.service('MyErrorListener', function($rootScope) {
+        this.initialize = function() {
+            $rootScope.$on('rollbar:exception', function(event, response) {
+                // custom logic here...
+            });
+        }
+    });
+```
+
+The `event` parameter in the listener is the representation of the Angular event. The `response` object contains the following items:
+
+* `exception` - The exception that was caught and logged to Rollbar
+* `data` - The data sent back from Rollbar
+* `err` - Error information if the Rollbar request failed
 
 How it works
 ------------
