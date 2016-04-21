@@ -23,6 +23,13 @@
     var rollbarProvider = this;
     var rollbarActivated = true;
 
+    function _bindRollbarMethod(methodName) {
+      var args = arguments;
+      return function() {
+        $window.Rollbar[methodName].apply($window.Rollbar, args);
+      };
+    }
+
     this.init = function(config) {
       var _rollbarConfig = config;
       if (rollbarActivated) {
@@ -63,13 +70,13 @@
         service.Rollbar = $window.Rollbar;
 
         // bind the native Rollbar methods
-        service.configure = generateRollbarMethod('configure');
-        service.critical = generateRollbarMethod('critical');
-        service.error = generateRollbarMethod('error');
-        service.warning = generateRollbarMethod('warning');
-        service.info = generateRollbarMethod('info');
-        service.debug = generateRollbarMethod('debug');
-        service.scope = generateRollbarMethod('scope');
+        service.configure = _bindRollbarMethod('configure');
+        service.critical = _bindRollbarMethod('critical');
+        service.error = _bindRollbarMethod('error');
+        service.warning = _bindRollbarMethod('warning');
+        service.info = _bindRollbarMethod('info');
+        service.debug = _bindRollbarMethod('debug');
+        service.scope = _bindRollbarMethod('scope');
 
         service.verbose = function (boolean) {
           if (boolean === undefined) { boolean = true; }
@@ -83,13 +90,6 @@
         service.disable = function () {
           $window.Rollbar.configure({ enabled: false });
         };
-      }
-
-      function generateRollbarMethod(methodName) {
-          var args = arguments;
-          return function() {
-              $window.Rollbar[methodName].apply($window.Rollbar, args);
-          }
       }
 
       function logInactiveMessage() {
