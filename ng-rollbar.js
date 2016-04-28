@@ -23,13 +23,6 @@
     var rollbarProvider = this;
     var rollbarActivated = true;
 
-    function _bindRollbarMethod(methodName) {
-      var args = arguments;
-      return function() {
-        $window.Rollbar[methodName].apply($window.Rollbar, args);
-      };
-    }
-
     this.init = function(config) {
       var _rollbarConfig = config;
       if (rollbarActivated) {
@@ -48,6 +41,14 @@
 
     getter.$inject = ['$window'];
     function getter($window) {
+
+      function _bindRollbarMethod(methodName) {
+        var args = arguments;
+        return function() {
+          $window.Rollbar[methodName].apply($window.Rollbar, args);
+        };
+      }
+
       var service = {
         Rollbar: logInactiveMessage,
 
