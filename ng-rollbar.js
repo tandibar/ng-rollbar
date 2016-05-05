@@ -43,9 +43,8 @@
     function getter($window) {
 
       function _bindRollbarMethod(methodName) {
-        var args = arguments;
         return function() {
-          $window.Rollbar[methodName].apply($window.Rollbar, args);
+          $window.Rollbar[methodName].apply($window.Rollbar, arguments);
         };
       }
 
