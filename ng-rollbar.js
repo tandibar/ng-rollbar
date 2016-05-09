@@ -39,8 +39,8 @@
       rollbarActivated = false;
     };
 
-    getter.$inject = ['$window'];
-    function getter($window) {
+    getter.$inject = ['$log', '$window'];
+    function getter($log, $window) {
 
       function _bindRollbarMethod(methodName) {
         return function() {
@@ -93,7 +93,7 @@
       }
 
       function logInactiveMessage() {
-        console.warn("Rollbar is deactivated");
+        $log.warn("Rollbar is deactivated");
       }
 
       return service;
