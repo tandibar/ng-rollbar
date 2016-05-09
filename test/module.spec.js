@@ -3,7 +3,7 @@
  * decorator logic.
  */
 
-describe('Module: ng-rollbar', function() {
+describe('[ng-rollbar Module]', function() {
     var $exceptionHandler;
 
     var $rootScopeSpy,
