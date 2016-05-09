@@ -17,7 +17,7 @@ module.exports = function(config) {
       'node_modules/angular/angular.min.js',
       'node_modules/angular-mocks/angular-mocks.js',
       'ng-rollbar.js',
-      'test/**/*.js'
+      'test/**/*.spec.js'
     ],
 
 
