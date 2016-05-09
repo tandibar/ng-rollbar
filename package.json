@@ -14,6 +14,8 @@
   },
   "homepage": "https://github.com/tandibar/ng-rollbar",
   "devDependencies": {
+    "angular": "^1.5.5",
+    "angular-mocks": "^1.5.5",
     "byline": "^4.2.1",
     "grunt": "^0.4.5",
     "grunt-contrib-jshint": "^0.11.0",
@@ -21,6 +23,13 @@
     "grunt-git": "^0.3.4",
     "grunt-ng-annotate": "^0.10.0",
     "grunt-release": "^0.13.0",
+    "jasmine": "^2.4.1",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-jasmine": "^1.0.2",
     "lodash": "^3.3.1"
+  },
+  "scripts": {
+    "test": "node_modules/karma/bin/karma start --single-run"
   }
 }
