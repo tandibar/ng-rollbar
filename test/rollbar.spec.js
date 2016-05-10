@@ -141,4 +141,50 @@ describe('[Rollbar Service]', function() {
             });
         });
 
+        describe('When Rollbar is deactivated', function() {
+            var i, method;
+
+            beforeEach(function() {
+                initializeModule(true);
+            });
+
+            // these tests will loop over the methods that are wrappers around the native object
+            for (i=0; i<nativeRollbarMethods.length; i++) {
+                method = nativeRollbarMethods[i];
+
+                describe('and the `' + method + '` method is run', function() {
+                    beforeEach(function() {
+                        target[method]('ARGUMENT 1', 'ARGUMENT 2', 'ARGUMENT 3');
+                    });
+
+                    it('should NOT call the method on the native Rollbar object', function() {
+                        expect(nativeRollbarSpy[method]).not.toHaveBeenCalled();
+                    });
+
+                    it('should log a warning', function() {
+                        expect($logSpy.warn).toHaveBeenCalled();
+                    });
+                });
+            }
+
+            // these will test additional disabled methods
+            var disabledConfigMethods = ['verbose', 'enabled', 'disable'];
+            for (i=0; i<disabledConfigMethods.lenth; i++) {
+                method = disabledConfigMethods[i];
+
+                describe('and the `' + method + '` config method is run', function() {
+                    beforeEach(function() {
+                        target[method]();
+                    });
+
+                    it('should NOT configure the native Rollbar object', function() {
+                        expect(nativeRollbarSpy.configure).not.toHaveBeenCalled();
+                    });
+
+                    it('should log a warning', function() {
+                        expect($logSpy.warn).toHaveBeenCalled();
+                    });
+                });
+            }
+        });
 });
