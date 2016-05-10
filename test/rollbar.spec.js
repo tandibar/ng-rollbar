@@ -142,15 +142,12 @@ describe('[Rollbar Service]', function() {
         });
 
         describe('When Rollbar is deactivated', function() {
-            var i, method;
-
             beforeEach(function() {
                 initializeModule(true);
             });
 
             // these tests will loop over the methods that are wrappers around the native object
-            for (i=0; i<nativeRollbarMethods.length; i++) {
-                method = nativeRollbarMethods[i];
+            nativeRollbarMethods.forEach(function(method) {
 
                 describe('and the `' + method + '` method is run', function() {
                     beforeEach(function() {
@@ -165,12 +162,12 @@ describe('[Rollbar Service]', function() {
                         expect($logSpy.warn).toHaveBeenCalled();
                     });
                 });
-            }
+
+            });
 
             // these will test additional disabled methods
-            var disabledConfigMethods = ['verbose', 'enabled', 'disable'];
-            for (i=0; i<disabledConfigMethods.lenth; i++) {
-                method = disabledConfigMethods[i];
+            var disabledConfigMethods = ['verbose', 'enable', 'disable'];
+            disabledConfigMethods.forEach(function(method) {
 
                 describe('and the `' + method + '` config method is run', function() {
                     beforeEach(function() {
@@ -185,6 +182,7 @@ describe('[Rollbar Service]', function() {
                         expect($logSpy.warn).toHaveBeenCalled();
                     });
                 });
-            }
+
+            });
         });
 });
