@@ -21,6 +21,7 @@ describe('[Rollbar Service]', function() {
             // $log Spy
             $provide.service('$log', function() {
                 $logSpy = jasmine.createSpyObj('$log', ['warn']);
+                return $logSpy;
             });
 
             // $window Mock
