@@ -40,10 +40,25 @@ describe('[Rollbar Service]', function() {
 
         }));
 
-        // Initialize the module and capture a reference to the provider
-        beforeEach(module('tandibar/ng-rollbar', function(RollbarProvider) {
-            targetProvider = RollbarProvider;
-        }));
+        // Initialization
+        function initializeModule(triggerDeinit) {
+
+            // initialize the ng-rollbar module
+            module('tandibar/ng-rollbar');
+
+            // capture the provider and optionally deinit
+            module(function(RollbarProvider) {
+                targetProvider = RollbarProvider;
+                if (triggerDeinit) {
+                    RollbarProvider.deinit();
+                }
+            });
+
+            // inject the Rollbar service and capture a reference
+            inject(function(Rollbar) {
+                target = Rollbar;
+            });
+        }
 
 
         /***************
@@ -52,10 +67,9 @@ describe('[Rollbar Service]', function() {
 
         describe('When Rollbar is active', function() {
 
-            // Get a reference to the target service (in this case the Rollbar service)
-            beforeEach(inject(function(Rollbar) {
-                target = Rollbar;
-            }));
+            beforeEach(function() {
+                initializeModule();
+            });
 
             // these tests will loop over the methods that are wrappers around the native object
             for (var i=0; i<nativeRollbarMethods.length; i++) {
