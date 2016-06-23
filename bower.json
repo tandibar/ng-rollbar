@@ -1,6 +1,6 @@
 {
   "name": "ng-rollbar",
-  "main": "ng-rollbar.min.js",
+  "main": "ng-rollbar.js",
   "version": "1.9.1",
   "homepage": "https://github.com/tandibar/ng-rollbar",
   "authors": [
