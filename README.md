@@ -40,7 +40,7 @@ angular.module('myApp', ['tandibar/ng-rollbar', ...])
 Now initialize the rollbar in your application's config:
 
 ```javascript
-myApp.config(function(RollbarProvider) {
+myApp.config(['RollbarProvider', function(RollbarProvider) {
   RollbarProvider.init({
     accessToken: "<YOUR-APPLICATION-TOKEN>",
     captureUncaught: true,
@@ -48,7 +48,7 @@ myApp.config(function(RollbarProvider) {
       environment: '<specify-your-env>'
     }
   });
-});
+}]);
 ```
 
 What you pass in via this init is exactly what you would do via the `_rollbarConfig` variable as described in the [Rollbar Docs](https://rollbar.com/docs/notifier/rollbar.js/). This call to `init` will trigger the inclusion of the Rollbar snippet in your application. So if you never trigger the `init` call, Rollbar will never track anything.
