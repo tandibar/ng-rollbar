@@ -44,7 +44,7 @@ module.exports = function(grunt) {
         sourceMap: true,
         banner: '/**\n' +
         ' * @license <%= bwr.name %> <%= bwr.version %> (<%= grunt.template.today("dd-mm-yyyy") %>)\n' +
-        ' * (c) 2015 IdentPro GmbH\n' +
+        ' * (c) 2015-2017 IdentPro GmbH\n' +
         ' * License: MIT\n' +
         ' */'
       },
@@ -139,6 +139,6 @@ module.exports = function(grunt) {
     grunt.log.writeln("  $> grunt update-lib:1.x.y");
     grunt.log.writeln();
     grunt.log.writeln("2. release");
-    grunt.log.writeln("  $> grunt release (major/minor/patch)");
+    grunt.log.writeln("  $> grunt release:(major/minor/patch)");
   });
 }
