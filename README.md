@@ -12,7 +12,9 @@ Before that:
 - `0.3.1` for rollbar.js in version `1.4.4`
 
 Special case:
+- `2.3.2` is rollbar.js in version `2.3.1` (2.3.1 is broken).
 - `1.9.2` is rollbar.js in version `1.9.1` with some patches to this library.
+
 
 Installation
 ------------
