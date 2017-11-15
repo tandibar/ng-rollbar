@@ -87,7 +87,7 @@ module.exports = function(grunt) {
     var done = this.async();
 
     grunt.log.writeln("starting update-lib with version: " + version);
-    var url = "https://raw.githubusercontent.com/rollbar/rollbar.js/v" + version + "/dist/rollbar.snippet.js";
+    var url = "https://raw.githubusercontent.com/rollbar/rollbar.js/master/dist/rollbar.snippet.js";
     grunt.log.writeln("requesting '" + url + "' ...");
     var lib = "";
     https.get(url, function(res) {

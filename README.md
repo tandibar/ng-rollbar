@@ -3,7 +3,7 @@ ng-rollbar
 
 [Rollbar](https://rollbar.com/) integration for [AngularJS](https://angularjs.org/)
 
-Using latest version 2.3.2 of rollbar.js. As rollbar encourages all users to stay up to date, and we can't easily track their versioning with our own, please look at release notes if you need to use an older version.
+As rollbar encourages all users to stay up to date, and we can't easily track their versioning with our own, please look at release notes if you need to use an older version, otherwise we always deploy with the latest commit in the rollbar.js master branch.
 
 Installation
 ------------
