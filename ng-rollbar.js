@@ -104,37 +104,3 @@
 
 })
 (angular);
-nfigure = _bindRollbarMethod('configure');
-        service.critical = _bindRollbarMethod('critical');
-        service.error = _bindRollbarMethod('error');
-        service.warning = _bindRollbarMethod('warning');
-        service.info = _bindRollbarMethod('info');
-        service.debug = _bindRollbarMethod('debug');
-        service.scope = _bindRollbarMethod('scope');
-
-        service.verbose = function (boolean) {
-          if (boolean === undefined) { boolean = true; }
-          $window.Rollbar.configure({ verbose: boolean });
-        };
-
-        service.enable = function () {
-          $window.Rollbar.configure({ enabled: true });
-        };
-
-        service.disable = function () {
-          $window.Rollbar.configure({ enabled: false });
-        };
-      }
-
-      function logInactiveMessage() {
-        $log.warn("Rollbar is deactivated");
-      }
-
-      return service;
-    }
-
-    this.$get = getter;
-  });
-
-})
-(angular);
