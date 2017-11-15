@@ -92,7 +92,14 @@ module.exports = function(grunt) {
     var lib = "";
     https.get(url, function(res) {
       grunt.log.writeln("Got response: " + res.statusCode);
+
+      var snippetCode = "";
+
       res.on('data', function(snippet) {
+        snippetCode += snippet;
+      })
+
+      res.on('end', function() {
 
         var stream = byline(fs.createReadStream(dst, { encoding: 'utf8' }), { keepEmptyLines: true });
         var newFileContent = "";
@@ -111,7 +118,7 @@ module.exports = function(grunt) {
             grunt.log.writeln("inserting new lib snippet")
             waiting = true;
             newFileContent += '        // ' + url + "\n"
-            newFileContent += '        ' + snippet + "\n"
+            newFileContent += '        ' + snippetCode + "\n"
           }
         });
 
