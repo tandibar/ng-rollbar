@@ -10,7 +10,7 @@
             $rootScope.$emit('rollbar:exception', {
               exception: exception,
               err: err,
-              data: data.result
+              data: data ? data.result : null
             });
           });
         }
